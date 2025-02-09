@@ -1,0 +1,19 @@
+{
+  "name": "cypressautomation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cypress": "^14.0.1",
+    "cypress-file-upload": "^5.0.8",
+    "neat-csv": "^5.2.0"
+  },
+  "dependencies": {
+    "papaparse": "^5.5.2"
+  }
+}
