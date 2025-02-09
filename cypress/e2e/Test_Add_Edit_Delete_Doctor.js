@@ -1,6 +1,6 @@
 const neatCSV = require('neat-CSV');
 
-describe('bbb', () => {
+describe('Test_Add_Edit_Delete_Doctor', () => {
   let table
 
     before(()=>{
@@ -10,10 +10,17 @@ describe('bbb', () => {
                table = data ;
         })
      .then(console.table)
+     cy.visit("http://healai-billing.s3-website-us-east-1.amazonaws.com/")
+     cy.get('[name="email"]').clear()
+     cy.get('[name="email"]').type("superadmin")
+     cy.get('[name="password"]').clear()
+     cy.get('[name="password"]').type("superadmin")
+     cy.get('button[aria-label=\'Login\']').click()
+     cy.get('h6:nth-child(1)').click()
     
     });
 
-    it('zzz', () => {
+    it('Add_Doctor', () => {
       
       let DateOfBirth
       let date
@@ -25,18 +32,10 @@ describe('bbb', () => {
       const month = DateOfBirth[1]
       const year  = DateOfBirth[2]
 
-      cy.visit("http://healai-billing.s3-website-us-east-1.amazonaws.com/")
-      cy.get('[name="email"]').clear()
-      cy.get('[name="email"]').type("superadmin")
-      cy.get('[name="password"]').clear()
-      cy.get('[name="password"]').type("superadmin")
-      cy.get('button[aria-label=\'Login\']').click()
-
-      cy.get('h6:nth-child(1)').click()
       cy.get('.actions-left > .MuiButtonBase-root').click()
-
       cy.get('li:nth-child(6) a:nth-child(1) div:nth-child(2) p:nth-child(1)').click()
-      cy.get('button[aria-label=\'Add a new doctor to the system\']').click()
+      cy.get('button[aria-label=\'Add a new doctor to the system\']').click({force: true})
+
       cy.get('#mui-component-select-salutation').click()
       cy.get('[role="option"]').contains('Mrs.').click()
       cy.get('[name="firstName"]').type("Rekha")
@@ -76,7 +75,6 @@ describe('bbb', () => {
       }
       cy.contains('button',date).click()
 
-      // cy.get('[name="age"]').type("44")
       cy.get('#mui-component-select-maritalStatus').click()
       cy.get('[role="option"]').contains('Widowed').click()
       cy.get('#mui-component-select-gender').click()
@@ -93,7 +91,6 @@ describe('bbb', () => {
       cy.get('[name="emergencyContactName"]').type("9916647654")
       cy.get('[name="emergencyContactRelationship"]').type("Friend")
       cy.get('[name="emergencyContactPhone"]').type("04312560711")
-
       cy.get('#mui-component-select-homeState').click()
       cy.get('[role="option"]').contains('Kerala').click()
       cy.get('#mui-component-select-homeCountry').click()
@@ -124,6 +121,10 @@ describe('bbb', () => {
       cy.get('input[type = "file"]').attachFile('sap.png')
       cy.get('div[class=\'MuiBox-root css-1w2p18d\'] button:nth-child(2)').click()
       cy.get('.MuiDialogActions-root > :nth-child(2)').click()
-
+      cy.get('div[role=\'status\']').invoke('text').then((strText) => {
+        cy.log('Paragraph text:', strText);
+        expect(strText).to.equal('Files uploaded successfully!');
+      });
+      cy.get('button[aria-label=\'Submit\']').click()
     })
   })
