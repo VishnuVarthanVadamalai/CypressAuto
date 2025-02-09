@@ -151,15 +151,13 @@ describe('Test_Add_Edit_Delete_Patient', () => {
       cy.get('input[type = "file"]').attachFile('sap.png')
       cy.get('div[class=\'MuiBox-root css-hvj582\'] button:nth-child(2)').click()
       cy.get('.MuiDialogActions-root > :nth-child(2)').click()
-      // cy.wait(2000);
       cy.get('div[role=\'status\']').invoke('text').then((strText1) => {
         cy.log('Paragraph text:', strText1);
         expect(strText1).to.equal('Files uploaded successfully!');
       });
       cy.get('div[role=\'status\']').should('not.exist');
       cy.get('button[aria-label=\'Submit\']').click()
-      // cy.wait(3000);
-
+ 
       cy.get('div[role=\'status\']').invoke('text').then((strText2) => {
         cy.log('Paragraph text:', strText2);
         expect(strText2).to.equal('Patient added successfully!');
