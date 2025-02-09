@@ -145,7 +145,5 @@ describe('Doctor', () => {
         cy.get('.MuiTablePagination-displayedRows').invoke('text').then((strText) => {
             cy.log('Paragraph text:', strText);
           });
-
-
     })
   })

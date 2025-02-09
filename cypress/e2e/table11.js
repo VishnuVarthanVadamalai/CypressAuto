@@ -2,7 +2,6 @@ const neatCSV = require('neat-CSV');
 
 describe('Doctor', () => {
     let table;
-
     before(()=>{
         cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/ad.csv")
             .then(neatCSV)
