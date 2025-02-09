@@ -3,8 +3,8 @@ const neatCSV = require('neat-CSV');
 describe('Test_Add_Edit_Delete_Patient', () => {
       let table;
   
-      before(()=>{
-          cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/ad.csv")
+      beforeEach(()=>{
+          cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/Patient_DOB.csv")
               .then(neatCSV)
               .then(data=> {
                   table = data ;
@@ -17,6 +17,8 @@ describe('Test_Add_Edit_Delete_Patient', () => {
               cy.get('[name="password"]').type("superadmin")
               cy.get('button[aria-label=\'Login\']').click()
               cy.get('h6:nth-child(1)').click()
+              cy.get('.actions-left > .MuiButtonBase-root').click()
+              cy.get('li:nth-child(5) a:nth-child(1) div:nth-child(2) p:nth-child(1)').click()
       });
 
 
@@ -32,13 +34,11 @@ describe('Test_Add_Edit_Delete_Patient', () => {
       const month = DateOfBirth[1]
       const year  = DateOfBirth[2]
 
-      cy.get('.actions-left > .MuiButtonBase-root').click()
-      cy.get('li:nth-child(5) a:nth-child(1) div:nth-child(2) p:nth-child(1)').click()
       cy.get('button[aria-label=\'Add a new patient to the system\']').click()
 
       cy.get('#mui-component-select-salutation').click()
       cy.get('[role="option"]').contains('Mrs.').click();
-      cy.get('[name="firstName"]').type("Rekha")
+      cy.get('[name="firstName"]').type(table[0]['Name'])
       cy.get('[name="lastName"]').type("Kumar")
       cy.get('[name="email"]').type("rekhan@gmail.com")
       cy.get('[name="mobileNumber"]').type("8095938000")
@@ -151,10 +151,47 @@ describe('Test_Add_Edit_Delete_Patient', () => {
       cy.get('input[type = "file"]').attachFile('sap.png')
       cy.get('div[class=\'MuiBox-root css-hvj582\'] button:nth-child(2)').click()
       cy.get('.MuiDialogActions-root > :nth-child(2)').click()
-      cy.get('div[role=\'status\']').invoke('text').then((strText) => {
-        cy.log('Paragraph text:', strText);
-        expect(strText).to.equal('Files uploaded successfully!');
+      // cy.wait(2000);
+      cy.get('div[role=\'status\']').invoke('text').then((strText1) => {
+        cy.log('Paragraph text:', strText1);
+        expect(strText1).to.equal('Files uploaded successfully!');
       });
+      cy.get('div[role=\'status\']').should('not.exist');
       cy.get('button[aria-label=\'Submit\']').click()
+      // cy.wait(3000);
+
+      cy.get('div[role=\'status\']').invoke('text').then((strText2) => {
+        cy.log('Paragraph text:', strText2);
+        expect(strText2).to.equal('Patient added successfully!');
+      });
+      cy.get('div[role=\'status\']').should('not.exist');
+    })
+    
+    it('Edit_Patient', () => {
+      cy.get('[name="searchQuery"]').type("8095938000")
+      cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
+      cy.get('svg[data-testid=\'MoreVertIcon\']').click()
+      cy.get('div[role=\'tooltip\'] li:nth-child(2)').click()
+      cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
+      cy.get('[name="lastName"]').type("Varthan")
+      cy.get('button[aria-label=\'Submit\']').click()
+      cy.get('div[role=\'status\']').invoke('text').then((strText3) => {
+        cy.log('Paragraph text:', strText3);
+        expect(strText3).to.equal('Patient updated successfully!');
+      });
+      cy.get('div[role=\'status\']').should('not.exist');
+    })
+
+    it('Delete_Patient', () => {
+      cy.get('[name="searchQuery"]').type("8095938000")
+      cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
+      cy.get('svg[data-testid=\'MoreVertIcon\']').click()
+      cy.get('div[role=\'tooltip\'] li:nth-child(3)').click()
+      cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
+      cy.get('div[role=\'status\']').invoke('text').then((strText4) => {
+        cy.log('Paragraph text:', strText4);
+        expect(strText4).to.equal('Patient deleted successfully');
+      });
+      cy.get('div[role=\'status\']').should('not.exist');
     })
   })
