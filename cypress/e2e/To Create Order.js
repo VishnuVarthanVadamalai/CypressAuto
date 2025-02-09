@@ -1,8 +1,6 @@
 
 const neatCSV = require('neat-CSV');
 describe('Order', () => {
-
-
     it.only('To Create Order Refered by Doctor', () => {
       cy.log("vishnu varthan Doctor")
       cy.visit("http://healai-billing.s3-website-us-east-1.amazonaws.com/")

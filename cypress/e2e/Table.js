@@ -123,7 +123,9 @@ describe('Doctor', () => {
         cy.get('input[type = "file"]').attachFile('sap.png')
         cy.get('div[class=\'MuiBox-root css-1w2p18d\'] button:nth-child(2)').click()
         cy.get('.MuiDialogActions-root > :nth-child(2)').click()
-
+        cy.get('div[role=\'status\']').invoke('text').then((strText) => {
+            cy.log('Paragraph text:', strText);
+          });
     })
 
     it('Table Play Around',  () => {
