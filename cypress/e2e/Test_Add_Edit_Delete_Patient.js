@@ -170,9 +170,14 @@ describe('Test_Add_Edit_Delete_Patient', () => {
     it('Edit_Patient', () => {
       cy.get('[name="searchQuery"]').type("8095938000")
       cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
+      cy.wait(2000);
+      cy.get('[name="searchQuery"]').clear()
+      cy.get('[name="searchQuery"]').type(table[0]['Name'])
+      cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
       cy.get('svg[data-testid=\'MoreVertIcon\']').click()
       cy.get('div[role=\'tooltip\'] li:nth-child(2)').click()
       cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
+      cy.get('[name="lastName"]').clear();
       cy.get('[name="lastName"]').type("Varthan")
       cy.get('button[aria-label=\'Submit\']').click()
       cy.get('div[role=\'status\']').invoke('text').then((strText3) => {
@@ -184,6 +189,10 @@ describe('Test_Add_Edit_Delete_Patient', () => {
 
     it('Delete_Patient', () => {
       cy.get('[name="searchQuery"]').type("8095938000")
+      cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
+      cy.wait(2000);
+      cy.get('[name="searchQuery"]').clear()
+      cy.get('[name="searchQuery"]').type(table[0]['Name'])
       cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
       cy.get('svg[data-testid=\'MoreVertIcon\']').click()
       cy.get('div[role=\'tooltip\'] li:nth-child(3)').click()
