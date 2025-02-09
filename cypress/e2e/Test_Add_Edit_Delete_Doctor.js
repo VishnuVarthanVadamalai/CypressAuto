@@ -4,7 +4,7 @@ describe('Test_Add_Edit_Delete_Doctor', () => {
   let table
 
     before(()=>{
-        cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/ad.csv")
+        cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/Patient_DOB.csv")
             .then(neatCSV)
             .then(data=> {
                table = data ;

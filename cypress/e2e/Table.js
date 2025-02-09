@@ -4,7 +4,7 @@ describe('Doctor', () => {
     let table;
 
     before(()=>{
-        cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/ad.csv")
+        cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/Patient_Details.csv")
             .then(neatCSV)
             .then(data=> {
                 table = data ;
