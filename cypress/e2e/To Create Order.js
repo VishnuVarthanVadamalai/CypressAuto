@@ -28,7 +28,12 @@ describe('Order', () => {
       cy.get('[role="option"]').contains('MRI ANGIGRAPHY BOTH LOWER LIMB').click()
 
       cy.get('button[aria-label=\'Add to Cart\']').click()
+      cy.get('.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-colorPrimary.MuiButton-root.MuiButton-contained.MuiButton-containedPrimary.MuiButton-sizeMedium.MuiButton-containedSizeMedium.MuiButton-colorPrimary.css-gpdodt').click()
 
+      cy.get('div[role=\'status\']').invoke('text').then((strText) => {
+        cy.log('Paragraph text:', strText);
+        expect(strText).to.equal('Order added successfully!');
+      });
     })
 
     it('To Create Order Refered by Sales', () => {
