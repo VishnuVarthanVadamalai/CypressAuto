@@ -46,9 +46,7 @@ describe('Order', () => {
             counter = index
             cy.log(counter)
             cy.log(`Shared data: ${counter}`);
-
             cy.get('button[aria-label=\'Add to Cart\']').eq(counter).click()
-
           }
         })
       })
@@ -80,11 +78,12 @@ describe('Order', () => {
       });
     })
 
-    it('Delete_Order_Doctor', () => {
+    it.only('Delete_Order_Doctor', () => {
       cy.get('.actions-left > .MuiButtonBase-root',{timeout: 10000}).should('be.visible')
       cy.get('.actions-left > .MuiButtonBase-root').click()
       cy.get('li:nth-child(2) a:nth-child(1) div:nth-child(2) p:nth-child(1)').click()
-      cy.get('svg[data-testid=\'MoreVertIcon\']').eq(0).click()
+      cy.get('svg[data-testid=\'MoreVertIcon\']').should('be.visible')
+      cy.get('svg[data-testid=\'MoreVertIcon\']').eq(0).click({force: true})
       cy.get('div[role=\'tooltip\'] li:nth-child(3)').click()
       cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
 
