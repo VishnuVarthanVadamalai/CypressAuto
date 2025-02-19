@@ -21,8 +21,17 @@ describe('Test_Add_Edit_Delete_Patient', () => {
               cy.get('button[aria-label=\'Login\']').click()
               cy.get('h6:nth-child(1)').should('be.visible')
               cy.get('h6:nth-child(1)').eq(0).click()
+              cy.get('.actions-left > .MuiButtonBase-root',{timeout: 10000}).should('be.visible')
               cy.get('.actions-left > .MuiButtonBase-root').click()
-              cy.get('li:nth-child(5) a:nth-child(1) div:nth-child(2) p:nth-child(1)').click()
+              cy.get('.css-1j71eye').eq(0).click()
+              cy.get('.css-a7jay2').each(($el, index, $list) => {
+                cy.wrap($el).invoke('text').then((text) => {
+                if (text == ['Patients'])
+                {
+                  cy.get($el).click()
+                }
+              })
+            })
       });
 
     it('Add_Edit_Delete_Patient', () => {
@@ -168,6 +177,7 @@ describe('Test_Add_Edit_Delete_Patient', () => {
             expect(strText2).to.equal('Patient added successfully!');
           });
           cy.get('div[role=\'status\']').should('not.exist');
+
 
     //Code to Edit the Patient
 

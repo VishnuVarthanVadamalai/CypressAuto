@@ -16,7 +16,19 @@ describe('Test_Add_Edit_Delete_Doctor', () => {
      cy.get('[name="password"]').clear()
      cy.get('[name="password"]').type("superadmin")
      cy.get('button[aria-label=\'Login\']').click()
-     cy.get('h6:nth-child(1)').click()
+     cy.get('h6:nth-child(1)').should('be.visible')
+     cy.get('h6:nth-child(1)').eq(1).click()
+     cy.get('.actions-left > .MuiButtonBase-root').should('be.visible')
+     cy.get('.actions-left > .MuiButtonBase-root').click()
+     cy.get('.css-1j71eye').eq(0).click()
+     cy.get('.css-a7jay2').each(($el, index, $list) => {
+       cy.wrap($el).invoke('text').then((text) => {
+       if (text == ['Doctors'])
+       {
+         cy.get($el).click()
+       }
+     })
+   })
     
     });
 
@@ -24,16 +36,14 @@ describe('Test_Add_Edit_Delete_Doctor', () => {
       
       let DateOfBirth
       let date
-      DateOfBirth = table[0]['DOB']
-      DateOfBirth = DateOfBirth.split("-")
+      DateOfBirth = "19/8/1990"
+      DateOfBirth = DateOfBirth.split("/")
       date = DateOfBirth[0]
       date = +date
   
       const month = DateOfBirth[1]
       const year  = DateOfBirth[2]
 
-      cy.get('.actions-left > .MuiButtonBase-root').click()
-      cy.get('li:nth-child(6) a:nth-child(1) div:nth-child(2) p:nth-child(1)').click()
       cy.get('button[aria-label=\'Add a new doctor to the system\']').click({force: true})
 
       cy.get('#mui-component-select-salutation').click()
@@ -42,7 +52,7 @@ describe('Test_Add_Edit_Delete_Doctor', () => {
       cy.get('[name="lastName"]').type("Kumar")
       cy.get('[name="email"]').type("rekhan@gmail.com")
       cy.get('[name="mobileNumber"]').type("8095938000")
-      cy.get('[name="phone"]').type("8095938001")
+      cy.get('[name="phone"]').type("123-456-7890")
 
       cy.get('.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.css-18k2iyp').click()
       cy.get('.MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPickersCalendarHeader-switchViewIcon.css-r38j8b').click()
@@ -73,7 +83,7 @@ describe('Test_Add_Edit_Delete_Doctor', () => {
   
           }
       }
-      cy.contains('button',date).click()
+    //   cy.contains('button',date).click()
 
       cy.get('#mui-component-select-maritalStatus').click()
       cy.get('[role="option"]').contains('Widowed').click()
@@ -99,11 +109,11 @@ describe('Test_Add_Edit_Delete_Doctor', () => {
       cy.get('button:nth-child(3)').click()
       cy.get('#mui-component-select-qualifications').click()
       cy.get('[role="option"]').contains('Diploma in Medical Specialization').click()
-      cy.get('[name="specialization"]').type("abc")
+      cy.get('[name="specialization"]').type("Cardiology")
       cy.get('[name="yearsOfExperience"]').type("12")
-      cy.get('[name="registrationNumber"]').type("R125")
+      cy.get('[name="registrationNumber"]').type("REG123456")
       cy.get('#mui-component-select-hospitalDepartment').click()
-      cy.get('[role="option"]').contains('Hematology').click()
+      cy.get('[role="option"]').contains('Cardiology').click()
       cy.get('[name="consultationFee"]').type("750")
 
       cy.get('button:nth-child(4)').click()
