@@ -44,12 +44,13 @@ describe('Order', () => {
 
               cy.get('.MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputSizeSmall.MuiInputBase-inputAdornedEnd.MuiAutocomplete-input.MuiAutocomplete-inputFocused.css-5xsnhk').eq(2).click()
               cy.get('[role="option"]').contains(table[i]['Product']).click()
-
+              cy.pause()
               cy.get('.css-2b3try').each(($el, index, $list) => {
                   cy.wrap($el).invoke('text').then((text) => {
                   if (text == table[i]['Product_Detail'])
                   {
                     counter = index
+                    cy.log(text)
                     cy.log(counter)
                     cy.log(`Shared data: ${counter}`);
                     cy.get('button[aria-label=\'Add to Cart\']').eq(counter).click()
