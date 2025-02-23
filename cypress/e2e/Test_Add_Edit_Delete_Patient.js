@@ -105,7 +105,7 @@ describe('Test_Add_Edit_Delete_Patient', () => {
           cy.get('#mui-component-select-bloodGroup').click()
           cy.get('[role="option"]').contains(table[i]['bloodGroup']).click()
           
-          cy.get('body > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > main:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()
+          cy.get('button:nth-child(2)').contains('Address Information').click()
           cy.get('[name="homeAptNo"]').type(table[i]['homeAptNo'])
           cy.get('[name="homeLandmark"]').type(table[i]['homeLandmark'])
           cy.get('[name="homeCity"]').type(table[i]['homeCity'])
@@ -188,8 +188,11 @@ describe('Test_Add_Edit_Delete_Patient', () => {
           cy.get('[name="searchQuery"]').type(table[i]['firstName'])
           cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
           cy.get('svg[data-testid=\'MoreVertIcon\']').click()
-          cy.get('div[role=\'tooltip\'] li:nth-child(2)').click()
-          cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
+          cy.get('div[role=\'tooltip\']').contains('Edit').click()
+          // cy.get('div[role=\'tooltip\'] li:nth-child(2)').click()
+          // cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
+          cy.get('div[role=\'presentation\']').contains('Confirm').click()
+          cy.pause()
           cy.get('[name="lastName"]').clear();
           cy.get('[name="lastName"]').type("Varthan")
           cy.get('button[aria-label=\'Submit\']').click()
@@ -207,8 +210,8 @@ describe('Test_Add_Edit_Delete_Patient', () => {
           cy.get('[name="searchQuery"]').type(table[i]['firstName'])
           cy.get('button[aria-label=\'Apply Filter to list patients\']').click()
           cy.get('svg[data-testid=\'MoreVertIcon\']').click()
-          cy.get('div[role=\'tooltip\'] li:nth-child(3)').click()
-          cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
+          cy.get('div[role=\'tooltip\']').contains('Delete').click()
+          cy.get('div[role=\'presentation\']').contains('Confirm').click()
           cy.get('div[role=\'status\']').invoke('text').then((strText4) => {
             cy.log('Paragraph text:', strText4);
             expect(strText4).to.equal('Patient deleted successfully');
