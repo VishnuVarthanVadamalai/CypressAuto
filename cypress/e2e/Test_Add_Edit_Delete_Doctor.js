@@ -142,7 +142,13 @@ describe('Test_Add_Edit_Delete_Doctor', () => {
         cy.log('Paragraph text:', strText);
         expect(strText).to.equal('Files uploaded successfully!');
       });
+      cy.get('div[role=\'status\']').should('not.exist');
       cy.get('button[aria-label=\'Submit\']').click()
+      cy.get('div[role=\'status\']').invoke('text').then((strText) => {
+        cy.log('Paragraph text:', strText);
+        expect(strText).to.equal('Doctor added successfully!');
+      });
+      cy.get('div[role=\'status\']').should('not.exist');
     }
     })
   })
