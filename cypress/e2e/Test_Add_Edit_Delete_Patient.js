@@ -192,7 +192,6 @@ describe('Test_Add_Edit_Delete_Patient', () => {
           // cy.get('div[role=\'tooltip\'] li:nth-child(2)').click()
           // cy.get('div[role=\'presentation\'] button:nth-child(2)').eq(1).click()
           cy.get('div[role=\'presentation\']').contains('Confirm').click()
-          cy.pause()
           cy.get('[name="lastName"]').clear();
           cy.get('[name="lastName"]').type("Varthan")
           cy.get('button[aria-label=\'Submit\']').click()

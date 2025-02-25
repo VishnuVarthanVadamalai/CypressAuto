@@ -28,8 +28,8 @@ describe('Test_Add_Edit_Delete_Invoices', () => {
     });
 
     it('Add_Edit_Delete_Invoices', () => {
-        for (let i = 0; i < rowCount; i++ )
-            {
+      for (let i = 0; i < rowCount; i++ )
+      {
       
         cy.log(rowCount)
         let DateOfBirth
@@ -176,6 +176,6 @@ describe('Test_Add_Edit_Delete_Invoices', () => {
         });
         cy.get('div[role=\'status\']').should('not.exist');
     
-    }
+      }
     })
   })

@@ -230,7 +230,5 @@ describe('Order', () => {
       expect(strText).to.equal('Failed to add doctor!');
       });
       cy.get('div[role=\'status\']').should('not.exist');
-
-
     })
   })
